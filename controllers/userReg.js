@@ -1,5 +1,5 @@
 import userModel from "../models/user.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 async function userReg(req, res)  {
   const { first_name, last_name, email, password, password_confirmation} = req.body;

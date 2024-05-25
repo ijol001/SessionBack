@@ -1,5 +1,5 @@
 import userModel from "../models/user.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 // User Login Module
 async function userLogin(req, res) {

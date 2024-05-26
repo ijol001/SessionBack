@@ -27,10 +27,6 @@ const store = new MongoDBStore({
 const sessionSecret = process.env.SESSION_SECRET ; 
 
 app.use(express.json());
-app.use(cors({
-  origin:'https://admirable-licorice-f2dfe9.netlify.app/',
-  credentials: true,
-}));
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -28,7 +28,7 @@ const sessionSecret = process.env.SESSION_SECRET ;
 
 app.use(express.json());
 app.use(cors({
-  origin:'http://localhost:3000',
+  origin:'https://admirable-licorice-f2dfe9.netlify.app/',
   credentials: true,
 }));
 

@@ -1,10 +1,10 @@
 import userModel from "../models/user.js";
 import bcrypt from "bcryptjs";
 
+
 async function userReg(req, res) {
 
   const { first_name, last_name, email, password, password_confirmation, captcha } = req.body;
-
   try {
 
     
@@ -33,14 +33,8 @@ async function userReg(req, res) {
 
     await newUser.save();
 
-    // req.session.user = {
-    //   email: newUser.email,
-    // };
-    // console.log(req.sessionID);
-
     return res.status(200).send({
       "status": "success", "message": "Registration successful",
-      // "session": req.sessionID
     });
 
   } catch (error) {

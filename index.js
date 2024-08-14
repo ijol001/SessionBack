@@ -14,7 +14,6 @@ mongoose.set('strictQuery', false);
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// MongoDB Session Store
 const MongoDBStore = MongoDBSessionStore(session);
 const store = new MongoDBStore({
   uri: process.env.MONGO_URL,
@@ -43,6 +42,7 @@ const corsOptions = {
   credentials: true,
 }
 app.use(cors(corsOptions))
+
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

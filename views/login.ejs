@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -35,9 +35,9 @@
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', async function(event) {
-      event.preventDefault(); // Prevent the default form submission behavior
+      event.preventDefault(); 
 
-      const formData = new FormData(this); // Get form data
+      const formData = new FormData(this); 
       const url = 'http://localhost:4000/api/users/login';
 
       try {
@@ -51,7 +51,7 @@
         }
 
         const data = await response.json();
-        console.log(data); // Handle the response data as needed
+        console.log(data); 
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
       }
@@ -59,4 +59,4 @@
   </script>
 </body>
 
-</html>
+</html> -->

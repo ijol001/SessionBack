@@ -7,7 +7,7 @@ import cors from "cors";
 
 
 router.post('/log-out', cors(), loggedUser);
-//public Routes
+
 router.post('/reg', cors(), userReg);
 router.post('/login', cors(), userLogin);
 

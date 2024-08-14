@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var ObjectId = mongoose.Types.ObjectId;
 
 
-//defining schema
 const userSchema = new Schema({
     id: {
         type: String, default: function () {

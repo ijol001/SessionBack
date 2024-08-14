@@ -1,46 +1,52 @@
 import userModel from "../models/user.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
-async function userReg(req, res)  {
-  const { first_name, last_name, email, password, password_confirmation} = req.body;
+async function userReg(req, res) {
+
+  const { first_name, last_name, email, password, password_confirmation, captcha } = req.body;
+
   try {
+
+    
     const user = await userModel.findOne({ email: email });
     if (user) {
-      res.status(201).send({ "status": "failed", "message": "Email already exists" });
-      return;
+      return res.status(201).send({ "status": "failed", "message": "Email already exists" });
     }
-    if (!first_name || !last_name || !email || !password || !password_confirmation ) {
-      res.send({ "status": "failed", "message": "All fields are required" });
-      return;
+
+    if (!first_name || !last_name || !email || !password || !password_confirmation || !captcha) {
+      return res.status(400).send({ "status": "failed", "message": "All fields are required" });
     }
+
     if (password !== password_confirmation) {
-      res.send({ "status": "failed", "message": "Password and Confirm Password do not match" });
-      return;
+      return res.status(400).send({ "status": "failed", "message": "Password and Confirm Password do not match" });
     }
+
     const saltRounds = 10;
     const hashPassword = await bcrypt.hash(password, saltRounds);
+
     const newUser = new userModel({
       first_name: first_name,
       last_name: last_name,
       email: email,
       password: hashPassword,
     });
+
     await newUser.save();
 
-    req.session.user = {
-      id: newUser.id, 
-      email: newUser.email,
-    };
+    // req.session.user = {
+    //   email: newUser.email,
+    // };
+    // console.log(req.sessionID);
 
-     res.status(200).send({
+    return res.status(200).send({
       "status": "success", "message": "Registration successful",
-      "user": req.session.user 
+      // "session": req.sessionID
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).send({ "status": "failed", "message": "Unable to register" });
+    return res.status(500).send({ "status": "failed", "message": "Unable to register" });
   }
-};
+}
 
 export default userReg;

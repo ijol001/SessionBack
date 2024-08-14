@@ -2,8 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import path from "path";
-import { fileURLToPath } from 'url';
 import cors from 'cors'; 
 import session from 'express-session';
 import MongoDBSessionStore from 'connect-mongodb-session';
@@ -20,32 +18,35 @@ const PORT = process.env.PORT || 4000;
 const MongoDBStore = MongoDBSessionStore(session);
 const store = new MongoDBStore({
   uri: process.env.MONGO_URL,
-  collection: 'sessions',
+  collection: 'session',
 });
 
-// Use a secret for session encryption
-const sessionSecret = process.env.SESSION_SECRET ; 
+app.use(session({
+  key : 'session',
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  store: store,
+  saveUninitialized: true,
+  cookie: { secure: false,
+    httpOnly: false,
+    maxAge: 24 * 60 * 60 * 1000, 
+    sameSite: 'lax',
+  },
+}));
+
 
 app.use(express.json());
-app.use(cors({
+
+const corsOptions = {
   origin:'http://localhost:3000',
+  optionsSuccessStatus: 200,
   credentials: true,
-}));
+}
+app.use(cors(corsOptions))
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(session({
-  key : 'Value',
-  secret: sessionSecret,
-  resave: false,
-  store: store,
-  cookie: { secure: false,
-    maxAge: 24 * 60 * 60 * 1000, 
-  },
-}));
-
 
 
 mongoose.connect(process.env.MONGO_URL, {

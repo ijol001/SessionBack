@@ -1,10 +1,9 @@
 import userModel from "../models/user.js";
-import bcrypt from "bcrypt";
-
+import bcrypt from "bcryptjs";
 // User Login Module
 async function userLogin(req, res) {
   try {
-    const { email, password } = req.body;
+    const { email, password} = req.body;
     console.log(email + ", " + password);
     if (email && password) {
       const user = await userModel.findOne({ email: email });
@@ -13,10 +12,13 @@ async function userLogin(req, res) {
         if (isMatch) {
           
           req.session.user = {
-            id: user.id,
-            email: user.email,
+            email: user.email
           };
-          res.send({ status: "success", message: "Login Success" });
+          console.log(req.sessionID);
+  
+          res.send({ status: "success", message: "Login Success",
+          "session": req.sessionID
+           });
         } else {
           res.send({ status: "failed", message: "Email or Password is not valid" });
         }

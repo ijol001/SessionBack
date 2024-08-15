@@ -37,7 +37,7 @@ app.use(session({
 app.use(express.json());
 
 const corsOptions = {
-  origin:'http://localhost:3000',
+  origin:'https://66bdb805dd9af78f2c148604--venerable-marshmallow-1b062d.netlify.app/',
   optionsSuccessStatus: 200,
   credentials: true,
 }

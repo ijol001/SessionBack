@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 var Schema = mongoose.Schema;
-
 var ObjectId = mongoose.Types.ObjectId;
-
 
 const userSchema = new Schema({
     id: {
@@ -17,6 +15,4 @@ const userSchema = new Schema({
 })
 
 const userModel = mongoose.model("users", userSchema);  
-
-
 export default userModel;

@@ -34,5 +34,4 @@ async function userLogin(req, res) {
   }
 }
 
-
 export default userLogin;

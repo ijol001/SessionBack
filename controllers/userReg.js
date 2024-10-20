@@ -1,13 +1,10 @@
 import userModel from "../models/user.js";
 import bcrypt from "bcryptjs";
 
-
 async function userReg(req, res) {
 
   const { first_name, last_name, email, password, password_confirmation, captcha } = req.body;
   try {
-
-    
     const user = await userModel.findOne({ email: email });
     if (user) {
       return res.status(201).send({ "status": "failed", "message": "Email already exists" });
@@ -30,7 +27,7 @@ async function userReg(req, res) {
       email: email,
       password: hashPassword,
     });
-
+    
     await newUser.save();
 
     return res.status(200).send({
